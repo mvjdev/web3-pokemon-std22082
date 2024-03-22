@@ -26,7 +26,7 @@ interface Pokemon {
 
 const Page: React.FC = () => {
   const [data, setData] = useState<Pokemon | null>(null);
-  const { id } = useParams<{ id: string }>(); // Extract the ID from the URL
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
@@ -34,7 +34,7 @@ const Page: React.FC = () => {
       .then((data: Pokemon) => {
         setData(data);
       });
-  }, [id]); // Add id to the dependency array to re-fetch when the ID changes
+  }, [id]);
 
   if (!data) {
     return <p>NO PROFIL DATA</p>;
@@ -67,6 +67,13 @@ const Page: React.FC = () => {
           <span className="font-bold underline text-red-600">Numéro:</span>{" "}
           <span className="text-black">{data.order}</span>
         </p>
+        <button
+          type="button"
+          onClick={() => window.history.back()}
+          className="mt-10 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Retour
+        </button>
       </div>
     </>
   );
